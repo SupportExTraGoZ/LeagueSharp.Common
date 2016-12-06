@@ -1184,7 +1184,7 @@ namespace LeagueSharp.Common
                         }
                     }
                 }
-
+                
                 /*Killable Minion*/
                 if (mode == OrbwalkingMode.LaneClear || mode == OrbwalkingMode.Mixed || mode == OrbwalkingMode.LastHit
                     || mode == OrbwalkingMode.Freeze)
@@ -1537,7 +1537,17 @@ namespace LeagueSharp.Common
                         }
                     }
                 }
-
+                if (mode == OrbwalkingMode.LaneClear)
+                {
+                    if (!this.ShouldWait())
+                    {
+                        var IvernDaisy = ObjectManager.Get<Obj_AI_Base>().FirstOrDefault(x => x.Name.ToLower() == "ivernminion");
+                        if (IvernDaisy != null && IvernDaisy.IsValidTarget(Player.AttackRange))
+                        {
+                            return IvernDaisy;
+                        }
+                    }
+                }
                 return result;
             }
 
